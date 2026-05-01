@@ -1,41 +1,41 @@
-import "./characterCard.css"
-const statusConfig = {
-  Alive:   { dot: "#1D9E75" },
-  Dead:    { dot: "#E24B4A" },
-  unknown: { dot: "#888780" },
+import 'antd/dist/reset.css';
+import { Card, Tag, Typography } from "antd";
+
+const { Text, Title } = Typography;
+
+const statusColorMap = {
+  Alive: "green",
+  Dead: "red",
+  unknown: "default",
 };
 
 const CharacterCard = ({ char }) => {
-  const sc = statusConfig[char.status] || statusConfig.unknown;
-
   return (
-    <div className="card">
-
-      <div className="card__image-wrapper">
-        <img src={char.image} alt={char.name} className="card__image" />
+    <Card
+      hoverable
+      cover={
+        <img
+          alt={char.name}
+          src={char.image}
+          style={{ height: 250, objectFit: "cover" }}
+        />
+      }
+      style={{ borderRadius: 12 }}
+    >
+      <Title level={5}>{char.name}</Title>
+      <Tag color={statusColorMap[char.status] || "default"}>
+        {char.status} - {char.species}
+      </Tag>
+      <div style={{ marginTop: 10 }}>
+        <Text type="secondary">Last known location:</Text>
+        <br />
+        <Text>{char.location.name}</Text>
+        <br /><br />
+        <Text type="secondary">First seen in:</Text>
+        <br />
+        <Text>{char.origin.name}</Text>
       </div>
-
-      <div className="card__body">
-        <p className="card__name">{char.name}</p>
-
-        <p className="card__sub">
-          <span className="card__badge-dot" style={{ background: sc.dot }} />
-          {char.status} - {char.species}
-        </p>
-
-        <div className="card__meta">
-          <div className="card__meta-row">
-            <span className="card__meta-label">Last known location:</span>
-            <span className="card__meta-value">{char.location.name}</span>
-          </div>
-          <div className="card__meta-row">
-            <span className="card__meta-label">First seen in:</span>
-            <span className="card__meta-value">{char.origin.name}</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    </Card>
   );
 };
 

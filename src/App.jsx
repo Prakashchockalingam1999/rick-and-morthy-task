@@ -2,16 +2,22 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios';
 import CharacterCard from './CommonComponents/characterCard';
+import { Row, Col } from 'antd';
+
+const statusOptions = [
+  { value: '',        label: 'All statuses' },
+  { value: 'alive',   label: 'Alive' },
+  { value: 'dead',    label: 'Dead' },
+  { value: 'unknown', label: 'Unknown' },
+];
 
 function App() {
-  const [character, setCharacter] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1); 
-  const [totalPages, setTotalPages] = useState(0);
-  const [name, setName] = useState('');
+  const [character, setCharacter]   = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages]   = useState(0);
+  const [name, setName]     = useState('');
   const [status, setStatus] = useState('');
 
-
-  // To fetch Data from the api
   useEffect(() => {
     const fetchCharacters = async () => {
       try {
@@ -21,7 +27,7 @@ function App() {
         setCharacter(response.data.results);
         setTotalPages(response.data.info.pages);
       } catch (error) {
-        console.error("Error fetching characters:", error);
+        console.error('Error fetching characters:', error);
         setCharacter([]);
         setTotalPages(0);
       }
@@ -46,6 +52,7 @@ function App() {
   return (
     <div className="page">
       <h2 className="page-title">Rick & Morty Characters</h2>
+
       <div className="filters">
         <input
           type="text"
@@ -59,47 +66,38 @@ function App() {
           value={status}
           onChange={handleStatusChange}
         >
-          <option value="">All statuses</option>
-          <option value="alive">Alive</option>
-          <option value="dead">Dead</option>
-          <option value="unknown">Unknown</option>
+          {statusOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
         </select>
       </div>
 
       {character.length === 0 ? (
         <p className="no-results">No characters found.</p>
       ) : (
-        <div className="grid">
+        <Row gutter={[16, 16]}>
           {character.map((char) => (
-            <CharacterCard key={char.id} char={char} />
+            <Col xs={24} sm={12} md={8} lg={6} key={char.id}>
+              <CharacterCard char={char} />
+            </Col>
           ))}
-        </div>
+        </Row>
       )}
 
       {totalPages > 1 && (
         <div className="pagination">
-          <button
-            className="pagination__btn"
-            onClick={handlePrev}
-            disabled={currentPage === 1}
-          >
+          <button className="pagination__btn" onClick={handlePrev} disabled={currentPage === 1}>
             Prev
           </button>
-
-          <span className="pagination__info">
-            {currentPage} / {totalPages}
-          </span>
-
-          <button
-            className="pagination__btn"
-            onClick={handleNext}
-            disabled={currentPage === totalPages}
-          >
+          <span className="pagination__info">{currentPage} / {totalPages}</span>
+          <button className="pagination__btn" onClick={handleNext} disabled={currentPage === totalPages}>
             Next
           </button>
         </div>
       )}
-      </div>
+    </div>
   );
 }
 
