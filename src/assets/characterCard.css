@@ -1,0 +1,85 @@
+/* ── Card ── */
+.card {
+    background: #3c3f47;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    height: 180px;
+  }
+  
+  /* ── Image ── */
+  .card__image-wrapper {
+    width: 180px;
+    min-width: 180px;
+    height: 100%;
+  }
+  
+  .card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  /* ── Body ── */
+  .card__body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .card__name {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.0;
+  }
+  
+  .card__sub {
+    margin: 0;
+    font-size: 14px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .card__badge-dot {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  /* ── Meta ── */
+  .card__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  
+  .card__meta-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .card__meta-label {
+    font-size: 13px;
+    color: #888;
+  }
+  
+  .card__meta-value {
+    font-size: 15px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
