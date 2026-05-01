@@ -1,16 +1,21 @@
 /* ── Page ── */
 .page {
-  padding: 24px;
   font-family: sans-serif;
   background: #202329;
   min-height: 100vh;
 }
 
 .page-title {
-  margin-bottom: 24px;
-  color: #fff;
-}
+  text-align: center;      
+  font-weight: bold;      
+  font-size: 40px;     
+  color: white; 
+  padding-top: 24px;
 
+}
+.content-wrapper{
+padding: 24px;
+}
 /* ── Grid ── */
 .grid {
   display: grid;

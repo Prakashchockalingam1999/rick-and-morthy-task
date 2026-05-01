@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios';
-import CharacterCard from './assets/characterCard';
+import CharacterCard from './CommonComponents/characterCard';
 
 function App() {
   const [character, setCharacter] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1); 
   const [totalPages, setTotalPages] = useState(0);
   const [name, setName] = useState('');
   const [status, setStatus] = useState('');
@@ -46,7 +46,6 @@ function App() {
   return (
     <div className="page">
       <h2 className="page-title">Rick & Morty Characters</h2>
-
       <div className="filters">
         <input
           type="text"
@@ -100,7 +99,7 @@ function App() {
           </button>
         </div>
       )}
-    </div>
+      </div>
   );
 }
 
