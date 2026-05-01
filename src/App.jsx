@@ -12,11 +12,21 @@ const statusOptions = [
 ];
 
 function App() {
-  const [character, setCharacter]   = useState([]);
+  const [character, setCharacter]     = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages]   = useState(0);
-  const [name, setName]     = useState('');
-  const [status, setStatus] = useState('');
+  const [nameInput, setNameInput]     = useState('');
+  const [name, setName]               = useState('');
+  const [status, setStatus]           = useState('');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setName(nameInput);
+      setCurrentPage(1);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [nameInput]);
 
   useEffect(() => {
     const fetchCharacters = async () => {
@@ -36,18 +46,10 @@ function App() {
     fetchCharacters();
   }, [currentPage, name, status]);
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-    setCurrentPage(1);
-  };
-
-  const handleStatusChange = (e) => {
-    setStatus(e.target.value);
-    setCurrentPage(1);
-  };
-
-  const handlePrev = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-  const handleNext = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const handleNameChange   = (e) => setNameInput(e.target.value);
+  const handleStatusChange = (e) => { setStatus(e.target.value); setCurrentPage(1); };
+  const handlePrev         = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
+  const handleNext         = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
 
   return (
     <div className="page">
@@ -58,7 +60,7 @@ function App() {
           type="text"
           className="filters__input"
           placeholder="Search by name..."
-          value={name}
+          value={nameInput}
           onChange={handleNameChange}
         />
         <select
